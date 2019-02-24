@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block app_content %}
+  <table class="table">
+    <tr>
+      <td>
+        <h2>Username:</h2>
+        <p>{{ current_user.username }}<p>
+          <h2>Last Login:</h2>
+          {% if user.last_seen %}<p>{{ user.last_seen }}</p>{% endif %}
+          <h2>Email:</p></h2>
+          <p>{{ current_user.email }}</p>
+          <h2>Experience:</h2>
+          {% if current_user.experience == None %}
+          <p>No Information</p><br>
+          {% else %}
+          <p>{{ current_user.experience }}</p><br>
+          {% endif %}
+          <p><a href="{{ url_for('auth.edit_profile') }}">Edit Profile</a></p>
+          {% if current_user.scores %}
+          <p><a href="{{ url_for('auth.history', page=1) }}">Score History</a></p>
+          {% endif %}
+        </td>
+      </tr>
+    </table>
+{% endblock %}

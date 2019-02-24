@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block header %}
+{% endblock %}
+
+{% block app_content %}
+  {% if current_user.is_anonymous %}
+  <div class="container">
+    <h2>Log in to start scoring molecules!</h2>
+  </div>
+  {% else %}
+  <div class="col-md-12 text-center">
+    <button id='start-button' onclick="start_app()" type="button" class="btn btn-primary btn-block btn-lg">Start Scoring</button>
+  </div>
+  <!--  Container for the molecule to be drawn inside -->
+  <div id="main" class="container" style="visibility: hidden;">
+    <div class="row">
+      <article class="post">
+        <canvas id="draw_mol"></canvas>
+      </article>
+    </div>
+    <div class="row">
+      <h4 style="text-align: center;">Can you make 1g of this compound in under 5 steps?</h4>
+    </div>
+     <div class="col-md-12 text-center">
+       <div class="btn-group btn-group-lg">
+        <button id="score-yes" type="button" class="btn btn-primary">Yes</button>
+        <button id="score-unsure" type="button" class="btn btn-success">Unsure</button>
+        <button id="score-no" type="button" class="btn btn-danger">No</button>
+      </div>
+    </div>
+  </div>
+    <!--  Buttons to score the molecule. OnClick they will send an ajax request to the Python backend
+    to add the score (synthesisable or non-synthesisable to the molecule and a new molecule will be requested from the database -->
+  {% endif %}
+{% endblock %}

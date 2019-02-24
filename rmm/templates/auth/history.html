@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block app_content %}
+  <table class="table">
+    <tr>
+      <td>
+        <h2>Username:</h2>
+        <p>{{ current_user.username }}<p>
+        {% if current_user.scores %}
+        <h2>Molecules Scored</h2>
+        <h3>Page Number: {{ page }}</h3>
+        <ul class="pager">
+          <li class="page-item"><a class="page-link" href="{{ url_for('auth.history', page=1) }}">First Page</a></li>
+          <li class="page-item"><a class="page-link" href="{{ url_for('auth.history', page= page+1 if page != last_page else page) }}">Next Page</a></li>
+          <li class="page-item"><a class="page-link" href="{{ url_for('auth.history', page= page-1 if page != 1 else page) }}">Previous Page</a></li>
+          <li class="page-item"><a class="page-link" href="{{ url_for('auth.history', page=last_page) }}">Last Page</a></li>
+        </ul>
+        <div id="history"></div>
+        <!--  Count the number of scores there are, call the function in Javascript that many number of times -->
+          {% for score in scores if score.sco|int == 1 %}
+            <script>
+                // Adding new canvas for each molecule
+                var mol_canvas = "<canvas id='draw_mol_{{ score.id }}'></canvas>"
+                $("#history").append('<div class="container">' + mol_canvas + '<br><h3>Synthesisable:</h3><p>{{ "Yes" if score.sco == 1 else "No" }}</p><br>' + '<button id="remove" type="button" onclick="remove_mol({{ score.id }})" class="btn btn-primary">Remove</button>' + '<button id="change-score" type="button" onclick="change_score({{ score.id }})" class="btn btn-danger">Change Rating</button></div>')
+                draw_smiles('{{ score.molecule.mol }}', 'draw_mol_{{ score.id }}')
+            </script>
+          {% endfor %}<br>
+          {% for score in scores if score.sco|int == 0 %}
+            <script>
+                // Adding new canvas for each molecule
+                var mol_canvas = "<canvas id='draw_mol_{{ score.id }}'></canvas>"
+                $("#history").append('<div class="container">' + mol_canvas + '<br><h3>Synthesisable:</h3><p>{{ "Yes" if score.sco == 1 else "No" }}</p><br>' + '<button id="remove" type="button" onclick="remove_mol({{ score.id }})" class="btn btn-primary">Remove</button>' + '<button id="change-score" type="button" onclick="change_score({{ score.id }})" class="btn btn-danger">Change Rating</button></div>')
+                draw_smiles('{{ score.molecule.mol }}', 'draw_mol_{{ score.id }}')
+            </script>
+          {% endfor %}<br>
+        <ul class="pager">
+          <li class="page-item"><a class="page-link" href="{{ url_for('auth.history', page=1) }}">First Page</a></li>
+          <li class="page-item"><a class="page-link" href="{{ url_for('auth.history', page= page+1 if page != last_page else page) }}">Next Page</a></li>
+          <li class="page-item"><a class="page-link" href="{{ url_for('auth.history', page= page-1 if page != 1 else page) }}">Previous Page</a></li>
+          <li class="page-item"><a class="page-link" href="{{ url_for('auth.history', page=last_page) }}">Last Page</a></li>
+        </ul>
+        {% else %}
+        <h2>You haven't scored any molecules!</h2>
+        {% endif %}
+      </td>
+    </tr>
+  </table>
+{% endblock %}
