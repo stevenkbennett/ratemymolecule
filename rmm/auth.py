@@ -78,7 +78,7 @@ def history(page):
         page = int(page)
     except:
         abort(404)
-    last_page = 1 if int(len(current_user.scores)/100) == 0 else int(len(current_user.scores)/100)
+    last_page = 1 if int(len(current_user.scores)/100) == 0 else int(len(current_user.scores)/100)+1
     scores = current_user.scores[(page-1)*100:(page-1)*100+100]
     return render_template('auth/history.html', page=page, scores=scores, last_page=last_page)
 
