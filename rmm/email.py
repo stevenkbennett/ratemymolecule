@@ -2,6 +2,7 @@ from flask import render_template
 from rmm import app, mail
 from flask_mail import Message
 
+
 def send_password_reset_email(user):
     token = user.get_reset_password_token()
     send_email('[Rate My Molecule] Reset Your Password',
@@ -11,6 +12,7 @@ def send_password_reset_email(user):
                                          user=user, token=token),
                html_body=render_template('email/reset_password.html',
                                          user=user, token=token))
+
 
 def send_email(subject, sender, recipients, text_body, html_body):
     msg = Message(subject, sender=sender, recipients=recipients)
