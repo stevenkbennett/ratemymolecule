@@ -75,6 +75,7 @@ def change_score():
         db.session.commit()
     return jsonify({'score_id': score_id})
 
+
 # Get a random molecule function
 def get_rand_mol():
     # Function gets a random molecule from the database to display on the website
@@ -95,6 +96,7 @@ def get_mol_not_scored():
         break
     return jsonify({'id':molecule.id,
                    'smiles':molecule.mol})
+
 
 @app.route('/reset_password/<token>', methods=['GET', 'POST'])
 def reset_password(token):

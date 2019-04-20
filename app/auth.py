@@ -1,13 +1,12 @@
-import functools
-from rmm import db
+from app import db
 from datetime import datetime
 from flask import abort
-from rmm.forms import RegistrationForm, LoginForm, EditProfileForm
+from app.forms import RegistrationForm, LoginForm, EditProfileForm
 from flask import (
     Blueprint, flash, redirect, render_template, request, session, url_for
 )
 from flask_login import current_user, login_user, logout_user, login_required
-from rmm.models import User
+from app.models import User
 from werkzeug.urls import url_parse
 
 bp = Blueprint('auth', __name__)

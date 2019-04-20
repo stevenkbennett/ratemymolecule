@@ -1,16 +1,17 @@
-from rmm import db
-from rmm import login
+from app import db
+from app import login
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from datetime import datetime
 from time import time
 import jwt
-from rmm import app
 from sqlalchemy.ext.associationproxy import association_proxy
+
 
 @login.user_loader
 def load_user(id):
     return User.query.get(int(id))
+
 
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -38,7 +39,7 @@ class User(UserMixin, db.Model):
         except:
             return
         return User.query.get(id)
-        
+
     def score_mol(self, score, molecule_id):
         # Score molecule takes input of the score and the molecule_id and appends the score to a user.
         molecule = db.session.query(Molecule).get(molecule_id)

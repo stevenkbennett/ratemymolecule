@@ -3,16 +3,17 @@ from flask import (
 )
 from werkzeug.exceptions import abort
 
-from rmm.auth import login_required
-from rmm.db import get_db
+from app.auth import login_required
+from app import db
+
 
 bp = Blueprint('blog', __name__)
 
 
 @bp.route('/')
 def index():
-    db = get_db()
-    posts = db.execute(
+    databse = db.get_db()
+    posts = database.execute(
         'SELECT p.id, title, body, created, author_id, username'
         ' FROM post p JOIN user u ON p.author_id = u.id'
         ' ORDER BY created DESC'
