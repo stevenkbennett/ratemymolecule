@@ -5,3 +5,4 @@ config.pyc
 migrations/
 __pycache__/
 **/*.pyc
+dbmigrate.py
