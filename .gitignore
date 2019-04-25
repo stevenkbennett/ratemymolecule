@@ -1,7 +1,5 @@
 app.db
 database.py
-config.py
-config.pyc
 migrations/
 __pycache__/
 **/*.pyc
