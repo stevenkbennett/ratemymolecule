@@ -8,6 +8,7 @@
   <div class="container">
     <h2>Log in to start scoring molecules!</h2>
   </div>
+  <!-- Do not draw container if current user is anonymous -->
   {% else %}
   <div class="col-md-12 text-center">
     <button id='start-button' onclick="start_app()" type="button" class="btn btn-primary btn-block btn-lg">Start Scoring</button>

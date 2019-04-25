@@ -1,1 +1,1 @@
-web: gunicorn app:rmm
+web: gunicorn app:app

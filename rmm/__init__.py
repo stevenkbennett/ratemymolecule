@@ -6,20 +6,34 @@ from flask_login import LoginManager
 from flask_migrate import Migrate
 from flask_bootstrap import Bootstrap
 
+db = SQLAlchemy()
+migrate = Migrate()
+login = LoginManager()
+login.login_view = 'auth.login'
+login.login_message = 'Please log in to access this page.'
+mail = Mail()
+bootstrap = Bootstrap()
 
-app = Flask(__name__)
-login = LoginManager(app)
-login.login_view = 'login'
-app.config.from_object(Config)
+def create_app(config_class=Config):
+    """Flask app generator funciton."""
+    app = Flask(__name__)
+    app.config.from_object(Config)
+    db.init_app(app)
+    migrate.init_app(app)
+    login.init_app(app)
+    mail.init_app(app)
+    bootstrap.init_app(app)
 
-bootstrap = Bootstrap(app)
+    from rmm.auth import bp as auth_bp
+    app.register_blueprint(auth_bp)
 
-db = SQLAlchemy(app)
-migrate = Migrate(app, db, render_as_batch=True)
+    from rmm.main import bp as main_bp
+    app.register_blueprint(main_bp)
 
-mail = Mail(app)
+    if not app.debug and not app.testing:
+        ...
+    return app
 
-from . import auth
-app.register_blueprint(auth.bp)
 
-from rmm import routes, models
+
+from rmm import models

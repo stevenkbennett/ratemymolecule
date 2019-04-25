@@ -16,11 +16,11 @@
                    <span class="icon-bar"></span>
                    <span class="icon-bar"></span>
                </button>
-               <a class="navbar-brand" href="{{ url_for('index') }}">Rate My Molecule</a>
+               <a class="navbar-brand" href="{{ url_for('main.index') }}">Rate My Molecule</a>
            </div>
            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                <ul class="nav navbar-nav">
-                   <li><a href="{{ url_for('index') }}">Home</a></li>
+                   <li><a href="{{ url_for('main.index') }}">Home</a></li>
                </ul>
                <ul class="nav navbar-nav navbar-right">
                    {% if current_user.is_anonymous %}
@@ -43,7 +43,12 @@
 <script src="https://code.jquery.com/jquery-3.3.1.slim.js"></script>
 <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 <script type="text/javascript" src="https://unpkg.com/smiles-drawer@1.0.10/dist/smiles-drawer.min.js"></script>
-<script type="text/javascript" src="{{ url_for('static', filename='index.js') }}"></script>
+
+{% if not current_user.is_anonymous %}
+  <!-- Only load the JS if the currrent user is logged in. -->
+  <script type="text/javascript" src="{{ url_for('static', filename='index.js') }}"></script>
+{% endif %}
+
   <div class="container">
     {% with messages = get_flashed_messages() %}
     {% if messages %}

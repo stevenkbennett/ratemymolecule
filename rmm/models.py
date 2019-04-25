@@ -6,7 +6,6 @@ from flask_login import UserMixin
 from datetime import datetime
 from time import time
 import jwt
-from rmm import app
 
 
 @login.user_loader
@@ -15,6 +14,7 @@ def load_user(id):
 
 
 class User(UserMixin, db.Model):
+    __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(64), index=True, unique=True)
     email = db.Column(db.String(120), index=True, unique=True)
@@ -22,7 +22,8 @@ class User(UserMixin, db.Model):
     experience = db.Column(db.Integer)
     last_seen = db.Column(db.DateTime, default=datetime.utcnow)
 
-    # From the user in the database should be able to access the scores of the user and by extension
+    # From the user in the database should be able to access the
+    # scores of the user and by extension
     # the molecules that have been scored.
 
     scores = db.relationship('Score', backref='user')
@@ -58,6 +59,7 @@ class User(UserMixin, db.Model):
 
 
 class Molecule(db.Model):
+    __tablename__ = 'molecules'
     id = db.Column(db.Integer, primary_key=True)
     mol = db.Column(db.String(200))
 
@@ -71,6 +73,7 @@ class Molecule(db.Model):
 
 
 class Score(db.Model):
+    __tablename__ = 'scores'
     id = db.Column(db.Integer, primary_key=True)
     sco = db.Column(db.Integer)
 
