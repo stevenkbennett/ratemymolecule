@@ -1,3 +1,4 @@
+"""Defines models for the database."""
 from rmm import db
 from rmm import login
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -6,11 +7,12 @@ from datetime import datetime
 from time import time
 import jwt
 from rmm import app
-from sqlalchemy.ext.associationproxy import association_proxy
+
 
 @login.user_loader
 def load_user(id):
     return User.query.get(int(id))
+
 
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -38,9 +40,10 @@ class User(UserMixin, db.Model):
         except:
             return
         return User.query.get(id)
-        
+
     def score_mol(self, score, molecule_id):
-        # Score molecule takes input of the score and the molecule_id and appends the score to a user.
+        # Score molecule takes input of the score and the molecule_id and
+        # appends the score to a user.
         molecule = db.session.query(Molecule).get(molecule_id)
         self.scores.append(Score(user=self, molecule=molecule, sco=score))
 
@@ -53,25 +56,28 @@ class User(UserMixin, db.Model):
     def __repr__(self):
         return '<User {}>'.format(self.username)
 
+
 class Molecule(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     mol = db.Column(db.String(200))
 
-    # From the molecule should be able to access the scores of the molecule and the users by extension of the scores
+    # From the molecule should be able to access the scores of the molecule
+    # and the users by extension of the scores.
     # The backref will generate a link to scores from the link to scores
     scores = db.relationship('Score', backref='molecule')
 
     def __repr__(self):
         return '<Smiles {}>'.format(self.mol)
 
+
 class Score(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     sco = db.Column(db.Integer)
 
-    # id for both the user that created the score and the molecule that is being scored.
+    # id for both the user that created the score
+    # and the molecule that is being scored.
     user_id = db.Column(db.Integer, db.ForeignKey(User.id))
     mol_id = db.Column(db.Integer, db.ForeignKey(Molecule.id))
-
 
     def __repr__(self):
         return '<Score {}>'.format(self.mol_id)
