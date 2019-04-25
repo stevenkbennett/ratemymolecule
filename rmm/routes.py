@@ -1,10 +1,9 @@
 from rmm import app
 from flask import render_template, jsonify, request, redirect, url_for, flash
-from rmm import auth
 import numpy as np
-from sqlalchemy import func
 from flask_login import login_required, current_user
 from rmm import db
+from rmm import app
 from rmm.forms import ResetPasswordRequestForm, ResetPasswordForm
 from rmm.models import User, Score, Molecule
 from rmm.email import send_password_reset_email
@@ -16,10 +15,10 @@ from rmm.email import send_password_reset_email
 def index():
     return render_template('main/index.html', title='Home Page')
 
+
 @login_required
 @app.route('/score', methods=['POST'])
 def score():
-    # Just get a random molecule for the time being
     # Gets the current user
     user = db.session.query(User).get(current_user.id)
     # Check unsure was not clicked
@@ -29,7 +28,7 @@ def score():
 
     return get_mol_not_scored()
 
-# Code to remove the molecule
+
 @login_required
 @app.route('/remove', methods=['POST'])
 def remove():
@@ -38,7 +37,9 @@ def remove():
     score_id = int(request.form['score_id'])
     # Gets the score.
     score = db.session.query(Score).get(score_id)
-    # Function that checks that the current logged in user has actually scored this molecule
+
+    # Function that checks that the current logged in user
+    # has actually scored this molecule
     def check_score():
         for score in user.scores:
             if score_id == score.id:
@@ -50,6 +51,7 @@ def remove():
         db.session.commit()
     return jsonify({'score_id': score_id})
 
+
 @login_required
 @app.route('/change_score', methods=['POST'])
 def change_score():
@@ -60,7 +62,8 @@ def change_score():
     score = db.session.query(Score).get(score_id)
     sco = int(score.sco)
 
-    # Function that checks that the current logged in user has actually scored this molecule
+    # Function that checks that the current logged in user has
+    # actually scored this molecule
     def check_score():
         for score in user.scores:
             if score_id == score.id:
@@ -75,11 +78,14 @@ def change_score():
         db.session.commit()
     return jsonify({'score_id': score_id})
 
+
 # Get a random molecule function
 def get_rand_mol():
-    # Function gets a random molecule from the database to display on the website
+    # Function gets a random molecule from
+    # the database to display on the website
     idx = np.random.randint(1, db.session.query(Molecule).count())
     molecule = db.session.query(Molecule).get(idx)
+    print(molecule)
 
     return molecule
 
@@ -93,8 +99,9 @@ def get_mol_not_scored():
             if int(score.id) == current_user.id:
                 continue
         break
-    return jsonify({'id':molecule.id,
-                   'smiles':molecule.mol})
+    return jsonify({'id': molecule.id,
+                   'smiles': molecule.mol})
+
 
 @app.route('/reset_password/<token>', methods=['GET', 'POST'])
 def reset_password(token):
@@ -111,6 +118,7 @@ def reset_password(token):
         return redirect(url_for('auth.login'))
     return render_template('reset_password.html', form=form)
 
+
 @app.route('/reset_password_request', methods=['GET', 'POST'])
 def reset_password_request():
     # Sanity check to see if the user is actually logged in.
@@ -123,4 +131,6 @@ def reset_password_request():
             send_password_reset_email(user)
         flash('Check your email for the instructions to reset your password.')
         return redirect(url_for('auth.login'))
-    return render_template('reset_password_request.html', title='Reset Password', form=form)
+    return render_template('reset_password_request.html',
+                           title='Reset Password',
+                           form=form)

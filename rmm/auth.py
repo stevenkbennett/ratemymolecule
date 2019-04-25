@@ -12,6 +12,7 @@ from werkzeug.urls import url_parse
 
 bp = Blueprint('auth', __name__)
 
+
 @bp.route('/register', methods=('GET', 'POST'))
 def register():
     if current_user.is_authenticated:
@@ -25,6 +26,7 @@ def register():
         flash('Congratulations, you are now registered.')
         return redirect(url_for('auth.login'))
     return render_template('auth/register.html', title='Register', form=form)
+
 
 @bp.route('/login', methods=('GET', 'POST'))
 def login():
@@ -43,17 +45,20 @@ def login():
         return redirect(url_for('index'))
     return render_template('auth/login.html', title='Login', form=form)
 
+
 @bp.before_request
 def before_request():
     if current_user.is_authenticated:
         current_user.last_seen = datetime.utcnow()
         db.session.commit()
 
+
 @login_required
 @bp.route('/profile/<username>')
 def user(username):
     user = User.query.filter_by(username=username).first_or_404()
     return render_template('auth/profile.html', user=user)
+
 
 @login_required
 @bp.route('/edit_profile', methods=['GET', 'POST'])
@@ -71,6 +76,7 @@ def edit_profile():
         form.email.data = current_user.email
     return render_template('auth/edit_profile.html', title='Edit Profile', form=form)
 
+
 @login_required
 @bp.route('/history/<page>')
 def history(page):
@@ -81,6 +87,7 @@ def history(page):
     last_page = 1 if int(len(current_user.scores)/100) == 0 else int(len(current_user.scores)/100)+1
     scores = current_user.scores[(page-1)*100:(page-1)*100+100]
     return render_template('auth/history.html', page=page, scores=scores, last_page=last_page)
+
 
 @bp.route('/logout')
 def logout():

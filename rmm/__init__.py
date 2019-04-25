@@ -1,12 +1,11 @@
-import os
 from flask_mail import Mail
 from flask import Flask
 from config import Config
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from flask_migrate import Migrate
-from sqlalchemy import MetaData
 from flask_bootstrap import Bootstrap
+
 
 app = Flask(__name__)
 login = LoginManager(app)
