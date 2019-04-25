@@ -1,1 +1,1 @@
-web: flask db upgrade; gunicorn ratemymolecule:rmm
+web: flask db upgrade; gunicorn rmm:app
