@@ -1,6 +1,6 @@
 from flask_mail import Mail
 from flask import Flask
-from config import Config
+
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from flask_migrate import Migrate
@@ -17,9 +17,17 @@ login.login_message = 'Please log in to access this page.'
 mail = Mail()
 bootstrap = Bootstrap()
 
-def create_app(config_class=Config):
+
+def create_app():
     """Flask app generator funciton."""
     app = Flask(__name__)
+    if app.debug:
+        from configlocal import Config
+        app.config.from_object(Config)
+    else:
+        from config import Config
+        app.config.from_object(Config)
+
     app.config.from_object(Config)
     db.init_app(app)
     migrate.init_app(app, db)
@@ -42,13 +50,12 @@ def create_app(config_class=Config):
             if not os.path.exists('logs'):
                 os.mkdir('logs')
             file_handler = RotatingFileHandler('logs/rmm.log',
-                                                maxBytes=10240, backupCount=10)
+                                               maxBytes=10240, backupCount=10)
             file_handler.setFormatter(
               logging.Formatter('{asctime} {levelname}: {message} \
               [in {pathname}:{lineo}]'))
             file_handler.setLevel(logging.INFO)
             app.logger.info('RateMyMolecule startup...')
     return app
-
 
 from rmm import models

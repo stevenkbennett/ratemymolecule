@@ -3,3 +3,4 @@ database.py
 __pycache__/
 **/*.pyc
 dbmigrate.py
+configlocal.py
