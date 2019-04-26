@@ -8,7 +8,8 @@ class Config(object):
     CRSF_ENABLED = True
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'dev'
     #: For local or non-local databases.
-    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or 'sqlite:///' + os.path.join(basedir, 'app.db')
+    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
+        'sqlite:///' + os.path.join(basedir, 'app.db')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     LOG_TO_STDOUT = os.environ.get('LOG_TO_STDOUT')
     MAIL_SERVER = 'smtp.googlemail.com'
