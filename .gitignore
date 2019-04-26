@@ -1,6 +1,5 @@
 app.db
 database.py
-migrations/
 __pycache__/
 **/*.pyc
 dbmigrate.py
