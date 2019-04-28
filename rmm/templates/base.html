@@ -1,6 +1,11 @@
 <!doctype html>
 {% extends 'bootstrap/base.html' %}
 
+{% block header %}
+  <head>
+    <link rel="shortcut icon" type="image/png" href={{url_for('static', filename='favicon-16x16.png')}}/>
+  </head>
+{% endblock %}
 
 {% block title %}
   {% if title %}{{ title }} - RateMyMolecule{% else %}Welcome to RMM!{% endif %}
@@ -23,16 +28,17 @@
                    <li><a href="{{ url_for('main.index') }}">Home</a></li>
                </ul>
                <ul class="nav navbar-nav navbar-right">
-                   {% if current_user.is_anonymous %}
-                   <li><a href="{{ url_for('auth.login') }}">Login</a></li>
-                   <li><a href="{{ url_for('auth.register') }}">Register</a></li>
-                   {% else %}
-                   <li><a> Logged In: {{ current_user.username }}</a></li>
-                   <li><a href="{{ url_for('auth.user', username=current_user.username) }}">Profile</a></li>
-                   <li><a href="{{ url_for('auth.logout') }}">Logout</a></li>
-                   <li><a href="{{ url_for('auth.history', page=1) }}">Scoring History</a></li>
-                   {% endif %}
-               </ul>
+                  <li><a href="{{ url_for('main.leaderboard')}}">Leaderboard</a></li>
+                 {% if current_user.is_anonymous %}
+                 <li><a href="{{ url_for('auth.login') }}">Login</a></li>
+                 <li><a href="{{ url_for('auth.register') }}">Register</a></li>
+                 {% else %}
+                 <li><a> Logged In: {{ current_user.username }}</a></li>
+                 <li><a href="{{ url_for('auth.user', username=current_user.username) }}">Profile</a></li>
+                 <li><a href="{{ url_for('auth.logout') }}">Logout</a></li>
+                 <li><a href="{{ url_for('auth.history', page=1) }}">Scoring History</a></li>
+                 {% endif %}
+             </ul>
            </div>
        </div>
    </nav>

@@ -8,6 +8,8 @@ from rmm.models import User, Score, Molecule
 from rmm.auth.email import send_password_reset_email
 from rmm.main import bp
 
+from collections import Counter
+
 # Default index route to load the home page
 @bp.route('/', methods=['GET', 'POST'])
 @bp.route('/index', methods=['GET', 'POST'])
@@ -98,6 +100,17 @@ def get_mol_not_scored():
     return jsonify({'id': molecule.id,
                    'smiles': molecule.mol})
 
+@bp.route('/leaderboard', methods=['GET'])
+def leaderboard():
+    #: List of all users.
+    users = db.session.query(User).all()
+    scores = db.session.query(Score).all()
+    score_count = Counter()
+    for score in scores:
+        score_count[score.user_id] += 1
+    sorted_users = sorted(users, key=lambda user: score_count[user.id], reverse=True)
+    return render_template('main/leaderboard.html', title='Leaderboard',
+                           users=sorted_users, score_count=score_count)
 
 @bp.route('/reset_password/<token>', methods=['GET', 'POST'])
 def reset_password(token):

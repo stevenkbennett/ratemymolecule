@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block app_content %}
+  <table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Rank</th>
+        <th scope="col">Username</th>
+        <th scope="col">Number of Molecules Scored</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for user in users %}
+        <tr>
+          <th scope="row">{{ loop.index }}</th>
+          <td>{{ user.username }}</td>
+          <td>{{ score_count[user.id] }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+
+
+
+
+{% endblock %}
