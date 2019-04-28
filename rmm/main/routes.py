@@ -24,7 +24,8 @@ def score():
     user = db.session.query(User).get(current_user.id)
     # Check unsure was not clicked
     if int(request.form['score']) != 2:
-        user.score_mol(score=request.form['score'], molecule_id=request.form['id'])
+        user.score_mol(score=request.form['score'],
+                       molecule_id=request.form['id'])
         db.session.commit()
     return get_mol_not_scored()
 
@@ -100,6 +101,7 @@ def get_mol_not_scored():
     return jsonify({'id': molecule.id,
                    'smiles': molecule.mol})
 
+
 @bp.route('/leaderboard', methods=['GET'])
 def leaderboard():
     #: List of all users.
@@ -108,9 +110,11 @@ def leaderboard():
     score_count = Counter()
     for score in scores:
         score_count[score.user_id] += 1
-    sorted_users = sorted(users, key=lambda user: score_count[user.id], reverse=True)
+    sorted_users = sorted(users, key=lambda user: score_count[user.id],
+                          reverse=True)
     return render_template('main/leaderboard.html', title='Leaderboard',
                            users=sorted_users, score_count=score_count)
+
 
 @bp.route('/reset_password/<token>', methods=['GET', 'POST'])
 def reset_password(token):
