@@ -1,13 +1,6 @@
-<<<<<<< HEAD:app/auth/routes.py
 from datetime import datetime
 from flask import abort
 from auth.forms import RegistrationForm, LoginForm, EditProfileForm
-=======
-from app import db
-from datetime import datetime
-from flask import abort
-from app.forms import RegistrationForm, LoginForm, EditProfileForm
->>>>>>> 4dac9e527dc02523c975733c9ca61043b4a1cb37:app/auth.py
 from flask import (
     flash, redirect, render_template, request, url_for
 )
