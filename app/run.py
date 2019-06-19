@@ -1,13 +1,14 @@
-from flask_mail import Mail
+import logging
+import os
+from logging.handlers import RotatingFileHandler
+
 from flask import Flask
 
-from flask_sqlalchemy import SQLAlchemy
-from flask_login import LoginManager
-from flask_migrate import Migrate
 from flask_bootstrap import Bootstrap
-import os
-import logging
-from logging.handlers import RotatingFileHandler
+from flask_login import LoginManager
+from flask_mail import Mail
+from flask_migrate import Migrate
+from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 migrate = Migrate()
@@ -17,10 +18,10 @@ login.login_message = 'Please log in to access this page.'
 mail = Mail()
 bootstrap = Bootstrap()
 
-
 def create_app():
     """Flask app generator funciton."""
     app = Flask(__name__)
+    app.debug = True
     if app.debug:
         from configlocal import Config
         app.config.from_object(Config)
@@ -35,10 +36,10 @@ def create_app():
     mail.init_app(app)
     bootstrap.init_app(app)
 
-    from rmm.auth import bp as auth_bp
+    from auth import bp as auth_bp
     app.register_blueprint(auth_bp)
 
-    from rmm.main import bp as main_bp
+    from main import bp as main_bp
     app.register_blueprint(main_bp)
 
     if not app.debug and not app.testing:
@@ -49,7 +50,7 @@ def create_app():
         else:
             if not os.path.exists('logs'):
                 os.mkdir('logs')
-            file_handler = RotatingFileHandler('logs/rmm.log',
+            file_handler = RotatingFileHandler('logs/app.log',
                                                maxBytes=10240, backupCount=10)
             file_handler.setFormatter(
               logging.Formatter('{asctime} {levelname}: {message} \
@@ -58,4 +59,4 @@ def create_app():
             app.logger.info('RateMyMolecule startup...')
     return app
 
-from rmm import models
+from models import *

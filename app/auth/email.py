@@ -1,6 +1,6 @@
 """Emails for the website."""
 from flask import render_template, current_app
-from rmm import mail
+from run import mail
 from flask_mail import Message
 
 

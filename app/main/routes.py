@@ -2,11 +2,11 @@ from flask import render_template, jsonify, request, redirect, url_for, flash
 import numpy as np
 from flask_login import login_required, current_user
 
-from rmm import db
-from rmm.auth.forms import ResetPasswordRequestForm, ResetPasswordForm
-from rmm.models import User, Score, Molecule
-from rmm.auth.email import send_password_reset_email
-from rmm.main import bp
+from run import db
+from auth.forms import ResetPasswordRequestForm, ResetPasswordForm
+from models import User, Score, Molecule
+from auth.email import send_password_reset_email
+from main import bp
 
 from collections import Counter
 
