@@ -1,12 +1,22 @@
+<<<<<<< HEAD:app/models.py
 """Defines models for the database."""
 from run import db
 from run import login
+=======
+from app import db
+from app import login
+>>>>>>> 4dac9e527dc02523c975733c9ca61043b4a1cb37:app/models.py
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from datetime import datetime
 from time import time
 import jwt
+<<<<<<< HEAD:app/models.py
 from flask import current_app
+
+=======
+from sqlalchemy.ext.associationproxy import association_proxy
+>>>>>>> 4dac9e527dc02523c975733c9ca61043b4a1cb37:app/models.py
 
 
 @login.user_loader
