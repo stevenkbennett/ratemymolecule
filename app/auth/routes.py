@@ -12,10 +12,6 @@ from flask import (
     flash, redirect, render_template, request, url_for
 )
 from flask_login import current_user, login_user, logout_user, login_required
-<<<<<<< HEAD:app/auth/routes.py
-=======
-from app.models import User
->>>>>>> 4dac9e527dc02523c975733c9ca61043b4a1cb37:app/auth.py
 from werkzeug.urls import url_parse
 
 from run import db
@@ -23,11 +19,7 @@ from models import User
 from auth import bp
 
 
-<<<<<<< HEAD:app/auth/routes.py
 @bp.route('/register', methods=['GET', 'POST'])
-=======
-@bp.route('/register', methods=('GET', 'POST'))
->>>>>>> 4dac9e527dc02523c975733c9ca61043b4a1cb37:app/auth.py
 def register():
     if current_user.is_authenticated:
         return redirect(url_for('main.index'))
@@ -42,11 +34,7 @@ def register():
     return render_template('auth/register.html', title='Register', form=form)
 
 
-<<<<<<< HEAD:app/auth/routes.py
 @bp.route('/login', methods=['GET', 'POST'])
-=======
-@bp.route('/login', methods=('GET', 'POST'))
->>>>>>> 4dac9e527dc02523c975733c9ca61043b4a1cb37:app/auth.py
 def login():
     if current_user.is_authenticated:
         return redirect(url_for('main.index'))

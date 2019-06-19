@@ -102,7 +102,6 @@ def get_mol_not_scored():
                    'smiles': molecule.mol})
 
 
-<<<<<<< HEAD:app/main/routes.py
 @bp.route('/leaderboard', methods=['GET'])
 def leaderboard():
     #: List of all users.
@@ -118,10 +117,6 @@ def leaderboard():
 
 
 @bp.route('/reset_password/<token>', methods=['GET', 'POST'])
-=======
-
-@app.route('/reset_password/<token>', methods=['GET', 'POST'])
->>>>>>> 4dac9e527dc02523c975733c9ca61043b4a1cb37:app/routes.py
 def reset_password(token):
     if current_user.is_authenticated:
         return redirect(url_for('main.index'))

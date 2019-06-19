@@ -4,11 +4,7 @@ from wtforms import (StringField, PasswordField,
                      BooleanField, SubmitField,
                      IntegerField)
 from wtforms.validators import ValidationError, DataRequired, Email, EqualTo
-<<<<<<< HEAD:app/auth/forms.py
 from models import User
-=======
-from app.models import User
->>>>>>> 4dac9e527dc02523c975733c9ca61043b4a1cb37:app/forms.py
 
 
 class LoginForm(FlaskForm):
