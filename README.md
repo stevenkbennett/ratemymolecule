@@ -1,1 +1,1 @@
-# rate-my-molecule
+# Rate My Molecule website.
