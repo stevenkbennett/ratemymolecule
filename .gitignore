@@ -5,3 +5,4 @@ database.py
 dbmigrate.py
 /Random
 /logs
+.env

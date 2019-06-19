@@ -1,3 +1,4 @@
 {
-    "python.pythonPath": "/Users/stevenbennett/anaconda3/envs/web/bin/python"
+    "python.pythonPath": "/Users/stevenbennett/anaconda3/envs/web/bin/python",
+    "python.autoComplete.extraPaths": ["./flask", "./flask/app"],
 }
