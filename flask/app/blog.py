@@ -3,7 +3,7 @@ from flask import (
 )
 from werkzeug.exceptions import abort
 
-from app.auth import login_required
+from app.auth.routes import login_required
 from app import db
 
 

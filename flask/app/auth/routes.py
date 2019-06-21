@@ -1,15 +1,15 @@
 from datetime import datetime
 from flask import abort
-from auth.forms import RegistrationForm, LoginForm, EditProfileForm
+from app.auth.forms import RegistrationForm, LoginForm, EditProfileForm
 from flask import (
     flash, redirect, render_template, request, url_for
 )
 from flask_login import current_user, login_user, logout_user, login_required
 from werkzeug.urls import url_parse
 
-from run import db
-from models import User
-from auth import bp
+from app import db
+from app.models import User
+from app.auth import bp
 
 
 @bp.route('/register', methods=['GET', 'POST'])
