@@ -1,8 +1,0 @@
-**/__pycache__
-**.pyc
-configlocal.py
-database.py
-dbmigrate.py
-/Random
-/logs
-.env

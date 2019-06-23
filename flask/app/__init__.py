@@ -27,8 +27,8 @@ def create_app():
     app = Flask(__name__)
     app.debug = True
     if app.debug:
-        from app.configlocal import DockerConfig
-        app.config.from_object(DockerConfig)
+        from app.configlocal import Config
+        app.config.from_object(Config)
     else:
         from app.config import Config
         app.config.from_object(Config)
