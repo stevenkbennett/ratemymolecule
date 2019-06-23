@@ -9,7 +9,7 @@ class Config(object):
     SECRET_KEY = os.environ.get('SECRET_KEY')
     #: For local or non-local databases.
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
-        'postgresql://' + 'stevenbennett:new_password@localhost/localdb'
+        'postgresql://' + 'stevenbennett:new_password@localhost/ratemymolecule'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     LOG_TO_STDOUT = os.environ.get('LOG_TO_STDOUT')
     MAIL_SERVER = os.environ.get('MAIL_SERVER')

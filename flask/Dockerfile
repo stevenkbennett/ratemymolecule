@@ -1,6 +1,7 @@
 # Dockerfile for RateMyMolecule.
 FROM python:3.7.3
 
+LABEL maintainer "Steven Bennett"
 # Change current working directory.
 WORKDIR /app
 
