@@ -1,7 +1,3 @@
-import logging
-import os
-from logging.handlers import RotatingFileHandler
-
 from flask import Flask
 from flask_bootstrap import Bootstrap
 from flask_login import LoginManager
@@ -9,7 +5,6 @@ from flask_mail import Mail
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 
-from app.config import Config
 
 # Initalise packages the app is going to use.
 

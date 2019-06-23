@@ -1,4 +1,9 @@
 {
-    "python.pythonPath": "/Users/stevenbennett/anaconda3/envs/web/bin/python",
-    "python.autoComplete.extraPaths": ["${workspaceFolder}/flask"]
+    "python.pythonPath": "/Users/stevenbennett/anaconda3/envs/flask-py37/bin/python",
+    "python.autoComplete.extraPaths": [
+        "${workspaceFolder}/flask"
+    ],
+    "python.linting.pylintEnabled": false,
+    "python.linting.flake8Enabled": true,
+    "python.linting.enabled": true
 }

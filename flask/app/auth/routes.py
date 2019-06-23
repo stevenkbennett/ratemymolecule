@@ -9,7 +9,9 @@ from werkzeug.urls import url_parse
 
 from app import db
 from app.models import User
-from app.auth import bp
+from flask import Blueprint
+
+bp = Blueprint('auth', __name__)
 
 
 @bp.route('/register', methods=['GET', 'POST'])
@@ -78,7 +80,6 @@ def edit_profile():
                            form=form)
 
 
-
 @login_required
 @bp.route('/history/<page>')
 def history(page):
@@ -94,7 +95,6 @@ def history(page):
     scores = scores[(page-1)*pg_length:(page-1)*pg_length+pg_length]
     return render_template('auth/history.html', page=page, scores=scores,
                            last_page=last_page)
-
 
 
 @bp.route('/logout')

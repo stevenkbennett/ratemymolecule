@@ -1,14 +1,17 @@
-from flask import render_template, jsonify, request, redirect, url_for, flash
+from collections import Counter
+
 import numpy as np
-from flask_login import login_required, current_user
+from flask import (Blueprint, flash, jsonify, redirect, render_template,
+                   request, url_for)
+from flask_login import current_user, login_required
 
 from app import db
-from app.auth.forms import ResetPasswordRequestForm, ResetPasswordForm
-from app.models import User, Score, Molecule
 from app.auth.email import send_password_reset_email
-from app.main import bp
+from app.auth.forms import ResetPasswordForm, ResetPasswordRequestForm
+from app.models import Molecule, Score, User
 
-from collections import Counter
+bp = Blueprint('main', __name__)
+
 
 # Default index route to load the home page
 @bp.route('/', methods=['GET', 'POST'])
@@ -99,7 +102,7 @@ def get_mol_not_scored():
                 continue
         break
     return jsonify({'id': molecule.id,
-                   'smiles': molecule.mol})
+                    'smiles': molecule.mol})
 
 
 @bp.route('/leaderboard', methods=['GET'])
