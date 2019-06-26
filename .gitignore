@@ -5,3 +5,4 @@ __pycache__
 *.env
 init-letsencrypt.sh
 logs
+data

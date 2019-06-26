@@ -11,13 +11,6 @@ services:
     restart: always
     ports:
       - 80:80
-      - 443:443
-
-  certbot:
-    image: certbot/certbot
-    volumes:
-     - ./data/certbot/conf:/etc/letsencrypt
-     - ./data/certbot/www:/var/www/certbot
 
   flask:
     container_name: flask
@@ -29,7 +22,6 @@ services:
     environment:
       - APP_NAME=RateMyMolecule
       - FLASK_ENV=production
-      - DATABASE_URL=postgres://example:password@database:5432/example
     expose:
       - 8080
 
