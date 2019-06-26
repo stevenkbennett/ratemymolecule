@@ -3,26 +3,38 @@ version: "3.7"
 services:
 
   nginx:
-    container_name: rmm/nginx
-    build: ./nginx
     container_name: nginx
+    build: ./nginx
+    volumes: 
+      - ./data/certbot/conf:/etc/letsencrypt
+      - ./data/certbot/www:/var/www/certbot
     restart: always
     ports:
       - 80:80
+      - 443:443
+
+  certbot:
+    image: certbot/certbot
+    volumes:
+     - ./data/certbot/conf:/etc/letsencrypt
+     - ./data/certbot/www:/var/www/certbot
 
   flask:
-    container_name: rmm/flask
-    build: ./flask
     container_name: flask
+    env_file: 
+      - database/database.conf
+      - docker_env.env
+    build: ./flask
     restart: always
     environment:
       - APP_NAME=RateMyMolecule
-      - DATABASE_URL=postgres://stevenbennett:password@postgres:5432/ratemymolecule
+      - FLASK_ENV=production
+      - DATABASE_URL=postgres://example:password@database:5432/example
     expose:
       - 8080
 
   database:
-    container_name: rmm/database
+    container_name: database
     env_file: 
       - database/database.conf
     build: ./database

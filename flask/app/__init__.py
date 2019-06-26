@@ -4,6 +4,7 @@ from flask_login import LoginManager
 from flask_mail import Mail
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
+from app.config import ProductionConfig
 
 
 # Initalise packages the app is going to use.
@@ -20,13 +21,10 @@ bootstrap = Bootstrap()
 def create_app():
     """Flask app generator funciton."""
     app = Flask(__name__)
-    app.debug = True
-    if app.debug:
-        from app.configlocal import Config
-        app.config.from_object(Config)
+    if not app.debug:
+        app.config.from_object(ProductionConfig)
     else:
-        from app.config import Config
-        app.config.from_object(Config)
+        app.config.from_object(ProductionConfig)
     db.init_app(app)
     migrate.init_app(app, db)
     login.init_app(app)

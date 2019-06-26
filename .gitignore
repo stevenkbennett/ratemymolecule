@@ -2,3 +2,6 @@ Random/
 *configlocal.py
 __pycache__
 *.pyc
+*.env
+init-letsencrypt.sh
+logs
