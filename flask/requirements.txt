@@ -4,7 +4,7 @@ blinker==1.4
 certifi==2019.6.16
 cffi==1.12.3
 Click==7.0
-cryptography==2.7
+cryptography==3.2
 dominate==2.3.5
 Flask==1.0.3
 Flask-Bootstrap==3.3.7.1
