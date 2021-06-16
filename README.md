@@ -26,6 +26,8 @@ The  ``docker-compose.yml`` contains the configuation to deploy the full-stack. 
 
 This will run the ``database`` Docker image in the background, creating a user, ``example``, and database ``example`` also. It will populate both of them with the SMILES molecules present.
 
+### Running the Full Application
+
 
 To run the full-stack run
 ```bash
