@@ -38,3 +38,11 @@ To run the full-stack run
 This will run the three images required to serve the website on ``localhost``, ``database``, ``flask`` and ``nginx``.
 
 If using this for production, specify a username and password for the PostgresSQL database in the `database.conf` folder and remove the default secret key from the Dockerfile.
+
+
+### Customising the Application
+
+
+The SMILES strings displayed by default can be customised. These are located in the `init.sql` file in databases, and will automatically add to the database.
+Additionally, this website can be used for any type of binary classification problem as the question can be changed.
+This can be customised in `flask/main/index.html`.
