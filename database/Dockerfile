@@ -1,3 +1,3 @@
 FROM postgres:latest
 
-ADD ratemymolecule.sql /docker-entrypoint-initdb.d/
+ADD init.sql /docker-entrypoint-initdb.d/

@@ -1,5 +1,7 @@
 # Rate My Molecule:
 
+![alt text](images/RMM.png)
+
 Software package for predicting synthetic accesibility of organic molecules. The tools are deployed as a Flask webapp, using PostgreSQL database.
 
 This code was developed by Steven Bennett, while undergoing my PhD in the Jelfs group, [jelfs-group.org](http://www.jelfs-group.org/).
@@ -24,13 +26,6 @@ The  ``docker-compose.yml`` contains the configuation to deploy the full-stack. 
 
 This will run the ``database`` Docker image in the background, creating a user, ``example``, and database ``example`` also. It will populate both of them with the SMILES molecules present.
 
-To login to the database run
-```bash
-
-    psql -h localhost -p 5432 -U example -d example
-```
-
-This will then allow manual changes to any of the database information.
 
 To run the full-stack run
 ```bash
@@ -39,3 +34,5 @@ To run the full-stack run
     docker-compose up
 ```
 This will run the three images required to serve the website on ``localhost``, ``database``, ``flask`` and ``nginx``.
+
+If using this
