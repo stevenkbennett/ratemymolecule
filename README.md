@@ -35,4 +35,4 @@ To run the full-stack run
 ```
 This will run the three images required to serve the website on ``localhost``, ``database``, ``flask`` and ``nginx``.
 
-If using this
+If using this for production, specify a username and password for the PostgresSQL database in the `database.conf` folder and remove the default secret key from the Dockerfile.
