@@ -1,7 +1,7 @@
 alembic==1.0.10
 asn1crypto==0.24.0
 blinker==1.4
-certifi==2019.6.16
+certifi==2022.12.7
 cffi==1.12.3
 Click==7.0
 cryptography==3.3.2
